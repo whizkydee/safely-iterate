@@ -1,7 +1,7 @@
 import * as safelyIterate from './index'
 
 describe('safely-iterate assertions', () => {
-  it('should not throw an error when a non-array is passed', () => {
+  it('should not error when a non-array is passed', () => {
     Object.values(safelyIterate).forEach(safeFn => {
       const calledWithString = safeFn.bind(null, '', k => k, undefined)
       const calledWithObject = safeFn.bind(null, {}, k => k, undefined)
@@ -13,15 +13,15 @@ describe('safely-iterate assertions', () => {
     })
   })
 
-  it('should throw an error when the second argument is not a function', () => {
+  it('should error when the second argument is not a function', () => {
     Object.values(safelyIterate).forEach(safeFn => {
+      const calledWithArray = safeFn.bind(null, [], [], undefined)
       const calledWithString = safeFn.bind(null, [], '', undefined)
       const calledWithObject = safeFn.bind(null, [], {}, undefined)
-      const calledWithArray = safeFn.bind(null, [], [], undefined)
 
+      expect(calledWithArray).toThrow(TypeError)
       expect(calledWithString).toThrow(TypeError)
       expect(calledWithObject).toThrow(TypeError)
-      expect(calledWithArray).toThrow(TypeError)
     })
   })
 
@@ -35,7 +35,6 @@ describe('safely-iterate assertions', () => {
     expect(safeReduce([{ x: 2 }, { x: 22 }], maxCallback)).toBe(22)
     expect(safeReduce([{ x: 2 }], maxCallback)).toEqual({ x: 2 })
     expect(() => safeReduce([], maxCallback)).toThrow(TypeError)
-
     expect(safeReduce([0, 1, 2, 3], (acc, cur) => acc + cur, 0)).toBe(6)
 
     expect(
@@ -64,5 +63,30 @@ describe('safely-iterate assertions', () => {
         -Infinity
       )
     ).toBe(42)
+  })
+
+  it('should properly apply the value of thisArg', () => {
+    const sample = [1, 2, 3, 4]
+    const { safeMap, safeFilter, safeEvery } = safelyIterate
+
+    const safeMapWithThisArg = safeMap(
+      sample,
+      function (value) { return value * this },
+      2
+    )
+    const safeFilterWithThisArg = safeFilter(
+      sample,
+      function (value) { return value < this },
+      4
+    )
+    const safeEveryWithThisArg = safeEvery(
+      sample,
+      function (value) { return value <= this },
+      4
+    )
+
+    expect(safeEveryWithThisArg).toBeTruthy()
+    expect(safeMapWithThisArg).toEqual([2, 4, 6, 8])
+    expect(safeFilterWithThisArg).toEqual([1, 2, 3])
   })
 })
