@@ -1,6 +1,6 @@
 {
   "name": "safely-iterate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "types": "index.d.ts",
   "repository": "whizkydee/safely-iterate",
