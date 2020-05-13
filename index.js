@@ -18,7 +18,10 @@ function executeArrayMethodOrFailSafe(methodName, array, callbackfn) {
 }
 
 function isDOMCollection(array) {
-  return array instanceof NodeList || array instanceof HTMLCollection
+  return (
+    typeof window != 'undefined' &&
+    (array instanceof NodeList || array instanceof HTMLCollection)
+  )
 }
 export function safeEvery() {
   return executeArrayMethodOrFailSafe('every', ...arguments)
