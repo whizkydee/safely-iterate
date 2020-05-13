@@ -1,4 +1,4 @@
-declare module 'safely-iterate' {
+declare namespace safelyIterate {
   type List<T> = T[] | NodeList | HTMLCollection
   /**
    * Determines whether all the members of an array satisfy the specified test.
@@ -17,7 +17,7 @@ declare module 'safely-iterate' {
   ): boolean
   export function safeEvery<T>(
     array: T,
-    callbackfn: (value: undefined, index: undefined, obj: never[]) => unknown,
+    callbackfn: (value: undefined, index: undefined, obj: undefined[]) => unknown,
     thisArg?: any
   ): boolean
 
@@ -38,14 +38,9 @@ declare module 'safely-iterate' {
     callbackfn: (value: T, index: number, obj: T[]) => unknown,
     thisArg?: any
   ): T[]
-  export function safeFilter<T, S extends T>(
-    array: T,
-    callbackfn: (value: undefined, index: undefined, obj: never[]) => value is S,
-    thisArg?: any
-  ): S[]
   export function safeFilter<T>(
     array: T,
-    callbackfn: (value: undefined, index: undefined, obj: never[]) => unknown,
+    callbackfn: (value: undefined, index: undefined, obj: undefined[]) => unknown,
     thisArg?: any
   ): T[]
 
@@ -70,16 +65,11 @@ declare module 'safely-iterate' {
     predicate: (value: T, index: number, obj: T[]) => unknown,
     thisArg?: any
   ): T | undefined
-  export function safeFind<T, S extends T>(
-    array: T,
-    predicate: (value: undefined, index: undefined, obj: never[]) => value is S,
-    thisArg?: any
-  ): S | undefined
   export function safeFind<T>(
     array: T,
-    predicate: (value: undefined, index: undefined, obj: never[]) => unknown,
+    predicate: (value: undefined, index: undefined, obj: undefined[]) => unknown,
     thisArg?: any
-  ): T | undefined
+  ): undefined
 
   /**
    * Returns the index of the first element in the array where predicate is true, and -1
@@ -99,7 +89,7 @@ declare module 'safely-iterate' {
   ): number
   export function safeFindIndex<T>(
     array: T,
-    predicate: (value: undefined, index: undefined, obj: never[]) => unknown,
+    predicate: (value: undefined, index: undefined, obj: undefined[]) => unknown,
     thisArg?: any
   ): number
 
@@ -117,7 +107,7 @@ declare module 'safely-iterate' {
   ): void
   export function safeForEach<T>(
     array: T,
-    callbackfn: (value: undefined, index: undefined, obj: never[]) => void,
+    callbackfn: (value: undefined, index: undefined, obj: undefined[]) => void,
     thisArg?: any
   ): void
 
@@ -135,7 +125,7 @@ declare module 'safely-iterate' {
   ): U[]
   export function safeMap<T, U>(
     array: T,
-    callbackfn: (value: undefined, index: undefined, obj: never[]) => U,
+    callbackfn: (value: undefined, index: undefined, obj: undefined[]) => U,
     thisArg?: any
   ): U[]
 
@@ -166,7 +156,7 @@ declare module 'safely-iterate' {
       previousValue: undefined,
       currentValue: undefined,
       currentIndex: undefined,
-      obj: never[]
+      obj: undefined[]
     ) => T
   ): T
   export function safeReduce<T>(
@@ -175,7 +165,7 @@ declare module 'safely-iterate' {
       previousValue: undefined,
       currentValue: undefined,
       currentIndex: undefined,
-      obj: never[]
+      obj: undefined[]
     ) => T,
     initialValue: T
   ): T
@@ -185,7 +175,7 @@ declare module 'safely-iterate' {
       previousValue: undefined,
       currentValue: undefined,
       currentIndex: undefined,
-      obj: never[]
+      obj: undefined[]
     ) => U,
     initialValue: U
   ): U
@@ -217,7 +207,7 @@ declare module 'safely-iterate' {
       previousValue: undefined,
       currentValue: undefined,
       currentIndex: undefined,
-      obj: never[]
+      obj: undefined[]
     ) => T
   ): T
   export function safeReduceRight<T>(
@@ -226,7 +216,7 @@ declare module 'safely-iterate' {
       previousValue: undefined,
       currentValue: undefined,
       currentIndex: undefined,
-      obj: never[]
+      obj: undefined[]
     ) => T,
     initialValue: T
   ): T
@@ -236,7 +226,7 @@ declare module 'safely-iterate' {
       previousValue: undefined,
       currentValue: undefined,
       currentIndex: undefined,
-      obj: never[]
+      obj: undefined[]
     ) => U,
     initialValue: U
   ): U
@@ -258,7 +248,7 @@ declare module 'safely-iterate' {
   ): boolean
   export function safeSome<T>(
     array: T,
-    callbackfn: (value: undefined, index: undefined, obj: never[]) => unknown,
+    callbackfn: (value: undefined, index: undefined, obj: undefined[]) => unknown,
     thisArg?: any
   ): boolean
 
@@ -270,9 +260,11 @@ declare module 'safely-iterate' {
    * a negative value if first argument is less than second argument, zero if they're equal and a positive
    * value otherwise. If omitted, the elements are sorted in ascending, ASCII character order.
    */
-  export function safeSort<T>(array: List<T>, compareFn?: (a: T, b: T) => number): T
+  export function safeSort<T>(array: List<T>, compareFn?: (a: T, b: T) => number): T[]
   export function safeSort<T>(
     array: T,
     compareFn?: (a: undefined, b: undefined) => number
-  ): never[]
+  ): undefined[]
 }
+
+export = safelyIterate
