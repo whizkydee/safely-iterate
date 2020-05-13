@@ -1,16 +1,6 @@
 import * as safelyIterate from './index'
 
 describe('safely-iterate assertions', () => {
-  it.only('real quick', () => {
-    const [value, index, array] = safelyIterate.safeMap(null, (value, index, array) => {
-      return [value, index, array]
-    })
-
-    expect(value).toBeUndefined()
-    expect(index).toBe(undefined)
-    expect(array).toEqual(null)
-  })
-
   it('should not throw an error when a non-array is passed', () => {
     Object.values(safelyIterate).forEach(safeFn => {
       const calledWithString = safeFn.bind(null, '', k => k, undefined)

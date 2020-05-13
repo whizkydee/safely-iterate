@@ -4,7 +4,7 @@
 
 ## ✨ Features
 
-- 📦 ~360b (gzipped)
+- 📦 ~400b (gzipped)
 - 🙅‍♂️ Zero dependencies
 - 🌈 TypeScript Support
 - ✅ Fully tested and reliable
