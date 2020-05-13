@@ -1,0 +1,48 @@
+{
+  "name": "safely-iterate",
+  "version": "0.0.0",
+  "license": "MIT",
+  "types": "index.d.ts",
+  "repository": "whizkydee/safely-iterate",
+  "description": "Fail-safe optimized array iteration utilities for reactive environments.",
+  "main": "dist/index.cjs.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "jsnext:main": "dist/index.esm.js",
+  "scripts": {
+    "flush": "del dist",
+    "test": "jest",
+    "build": "yarn flush && rollup -c && bundlesize"
+  },
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "map",
+    "array utilities",
+    "map",
+    "filter",
+    "reducers",
+    "array helpers",
+    "forEach",
+    "safe map"
+  ],
+  "bundlesize": [
+    {
+      "path": "dist/index.*.js"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "babel-jest": "^24.9.0",
+    "bundlesize": "^0.18.0",
+    "del-cli": "^3.0.0",
+    "jest": "^24.9.0",
+    "rollup": "^1.25.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.1.2"
+  }
+}
